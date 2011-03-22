@@ -6,10 +6,10 @@
 4.  Copy $\{StackMobiOSHome\}/build/Framework/StackMob.framework to your project as a framework
 5. Add the following to Other Linker Flags in the build configuration of your project: -ObjC -all_load
 6.  Add the following Frameworks to your project:
-               + CFNetwork.framework
-               + CoreLocation.framework
-                + SystemConfirmation.framework
-               + YAJLiOS.framework - This is provided as part of our GitHub project. You will find it in the external folder
++ CFNetwork.framework
++ CoreLocation.framework
++ SystemConfirmation.framework
++ YAJLiOS.framework - This is provided as part of our GitHub project. You will find it in the external folder
 
 7. We suggest you create a SessionFactory to handle creating the StackMob Session needed to connect to our servers. The session object should be retained for the life of the application. So creating it on applicationDidFinishLaunching and releasing it on applicationWillTerminate or applicationDidEnterBackground is a good pattern.  Something like the following will work:
 
@@ -33,9 +33,9 @@
                     }
                     @end`
 8. You can now make requests to your servers on StackMob using the following pattern
-	`StackMobRequest *request = [StackMobRequest requestForMethod: "THE_NAME_OF_THE_METHOD_BEING_CALLED"
-                                                                      withArguments: "DICT_OF_PARAMS"
-                                                                     withHttpVerb: "THE_TYPE_OF_REQUEST_GET_POST_ETC"];
+	            StackMobRequest *request = [StackMobRequest requestForMethod: "THE_NAME_OF_THE_METHOD_BEING_CALLED"
+                                                               withArguments: "DICT_OF_PARAMS"
+                                                                withHttpVerb: "THE_TYPE_OF_REQUEST_GET_POST_ETC"];
                        request.delegate = self;
                        [request sendRequest];
 
@@ -43,5 +43,5 @@
                        NSString *prettyPrint = [[request result] yajl_JSONStringWithOptions:YAJLGenOptionsBeautify
                             indentString:@"  "];
                        jsonLabel.text = prettyPrint;
-                   }`
+                   }
 
