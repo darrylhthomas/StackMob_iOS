@@ -22,6 +22,8 @@ NSString * const kAPIKey = @"8ae11219-1950-48a4-a3bc-8cf31e077941";
 NSString * const kAPISecret = @"f5874341-a158-4fbf-8e0d-dd92ac791adc";
 NSString * const kSubDomain = @"stackmob";
 NSString * const kAppName = @"sdktestapp";
+NSInteger const kAPIVersion = 1;
+
 StackMobSession *mySession = nil;
 
 @implementation APIRequestTests
@@ -32,7 +34,7 @@ StackMobSession *mySession = nil;
 	if (!mySession) 
 	{
 		mySession = [StackMobSession sessionForApplication:kAPIKey secret:kAPISecret 
-													appName:kAppName subDomain:kSubDomain];
+													appName:kAppName subDomain:kSubDomain apiVersionNumber:[NSNumber numberWithInt:kAPIVersion]];
 		NSLog(@"Created new session");
 	}
 }
