@@ -21,6 +21,7 @@
                     NSString * const kSubDomain = @"PUT_YOUR_SUB_DOMAIN_HERE";
                     NSString * const kAppName = @"PUT_YOUR_APP_NAME_HERE";
                     NSString * const kDomain = @"stackmob.com";
+                    NSNumber * const kAPIVersionNumber = [NSNumber numberWithInt:0]; // 0=sandbox
 
                     + (StackMobSession*)session {
                         if (session_ == nil) {
@@ -28,7 +29,8 @@
                                                                        secret:kAPISecret
                                                                       appName:kAppName
                                                                     subDomain:kSubDomain
-                                                                        domain:kDomain] retain];
+                                                                        domain:kDomain
+                                                               apiVersionNumber:kAPIVersionNumber] retain];
                         }
                         return session_;
                     }
