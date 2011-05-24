@@ -28,6 +28,7 @@
 	NSDate* _lastRequestTime;
 	int _requestBurstCount;
 	NSTimer* _requestTimer;
+  NSNumber* _apiVersionNumber;
 }
 
 /**
@@ -66,6 +67,11 @@
 @property(nonatomic,readonly) NSString* domain;
 
 /**
+ * The API version number.
+ */
+@property(nonatomic,readonly) NSNumber* apiVersionNumber;
+
+/**
  * The current user's session key.
  */
 @property(nonatomic,readonly) NSString* sessionKey;
@@ -93,7 +99,7 @@
  *
  */
 + (StackMobSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret
-						   appName:(NSString*)appName subDomain:(NSString*)subDomain;
+						   appName:(NSString*)appName subDomain:(NSString*)subDomain apiVersionNumber:(NSNumber*)apiVersionNumber;
 
 /**
  * Constructs a session and stores it as the globally shared session instance.
@@ -109,7 +115,8 @@
 + (StackMobSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret
 								  appName:(NSString*)appName 
 								  subDomain:(NSString*)subDomain
-								  domain:(NSString*)domain;
+					  			  domain:(NSString*)domain
+          apiVersionNumber:(NSNumber*)apiVersionNumber;
 /**
  * Constructs a session for an application.
  *
@@ -120,7 +127,7 @@
  * @param domain overwrites the stackmob.com domain
  */
 - (StackMobSession*)initWithKey:(NSString*)key secret:(NSString*)secret appName:(NSString*)appName
-					  subDomain:(NSString*)subDomain domain:(NSString*)domain;
+					  subDomain:(NSString*)subDomain domain:(NSString*)domain apiVersionNumber:(NSNumber*)apiVersionNumber;
 
 /**
  * Returns the formatted url for the passedMethod.

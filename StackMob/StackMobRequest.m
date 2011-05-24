@@ -260,10 +260,22 @@
 	// it all about this request's status.
 	if (mDelegate != nil)
 	{
-		if ([mDelegate respondsToSelector:@selector(requestCompleted:)] == YES)
+		if ([mDelegate respondsToSelector:@selector(requestCompleted:)] == YES) {
+      if (kLogVersbose == YES) {
+        StackMobLog(@"Calling delegate");
+      }
 			[mDelegate requestCompleted:self];
+    } else {
+      if (kLogVersbose == YES) {
+        StackMobLog(@"Delegate does not respond to selector\ndelegate: %@", mDelegate);
+      }
+    }
 	
-	}
+	} else {
+    if (kLogVersbose == YES) {
+      StackMobLog(@"No delegate");
+    }
+  }
 }
 
 - (NSDictionary *)sendSynchronousRequest {

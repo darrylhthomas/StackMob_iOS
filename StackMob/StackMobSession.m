@@ -29,6 +29,7 @@ static StackMobSession* sharedSession = nil;
 @synthesize appName = _appName;
 @synthesize subDomain = _subDomain;
 @synthesize domain = _domain;
+@synthesize apiVersionNumber = _apiVersionNumber;
 @synthesize sessionKey = _sessionKey;
 @synthesize expirationDate = _expirationDate;
 
@@ -39,18 +40,20 @@ static StackMobSession* sharedSession = nil;
 
 + (StackMobSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret
 								  appName:(NSString*)appName
-								subDomain:(NSString*)subDomain {
+								subDomain:(NSString*)subDomain
+               apiVersionNumber:(NSNumber*)apiVersionNumber {
 	return [self sessionForApplication:key secret:secret appName:appName 
-							 subDomain:subDomain domain:@"stackmob.com"];
+							 subDomain:subDomain domain:@"stackmob.com" apiVersionNumber:apiVersionNumber];
 }
 
 + (StackMobSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret appName:(NSString*)appName
-								subDomain:(NSString*)subDomain domain:(NSString*)domain {
+								subDomain:(NSString*)subDomain domain:(NSString*)domain apiVersionNumber:(NSNumber*)apiVersionNumber{
 	StackMobSession* session = [[[StackMobSession alloc] initWithKey:key 
-														secret:secret 
-													    appName:appName
-														subDomain:subDomain 
-														domain:domain] autorelease];
+													secret:secret 
+                         appName:appName
+                       subDomain:subDomain 
+													domain:domain
+                apiVersionNumber:apiVersionNumber] autorelease];
 	return session;
 }
 
@@ -65,9 +68,9 @@ static StackMobSession* sharedSession = nil;
 }
 
 - (StackMobSession*)initWithKey:(NSString*)key secret:(NSString*)secret appName:(NSString*)appName
-					  subDomain:(NSString*)subDomain domain:(NSString*)domain
+                      subDomain:(NSString*)subDomain domain:(NSString*)domain apiVersionNumber:(NSNumber*)apiVersionNumber
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		if (!sharedSession) {
 			sharedSession = self;
 		}
@@ -76,13 +79,14 @@ static StackMobSession* sharedSession = nil;
 		_appName = [appName copy];
 		_subDomain = [subDomain copy];
 		_domain = [domain copy];
+    _apiVersionNumber = [apiVersionNumber copy];
 		_sessionKey = nil;
 		_expirationDate = nil;
 		_requestQueue = [[NSMutableArray alloc] init];
 		_lastRequestTime = nil;
 		_requestBurstCount = 0;
 		_requestTimer = nil; 
-		url = [[NSString stringWithFormat:@"%@.%@/api/%@/%@/",_subDomain,_domain,kAPIVersion,_appName] retain];
+		url = [[NSString stringWithFormat:@"%@.%@/api/%@/%@/",_subDomain,_domain,_apiVersionNumber,_appName] retain];
 		secureURL = [[NSString stringWithFormat:@"https://%@", url] retain];
 		regularURL = [[NSString stringWithFormat:@"http://%@", url] retain];
 	}
@@ -101,6 +105,7 @@ static StackMobSession* sharedSession = nil;
 	[_appName release];
 	[_subDomain release];
 	[_domain release];
+  [_apiVersionNumber release];
 	[_sessionKey release];
 	[_expirationDate release];
 	[_lastRequestTime release];

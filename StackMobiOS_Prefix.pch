@@ -16,7 +16,6 @@
     #import <Foundation/Foundation.h>
 	#import <YAJLIOS/YAJLIOS.h>
 	#import "StackMobAdditions.h"
-	#import "Constants.h"
 	
 	#define kLogVersbose YES
 	#define kLogRequestSteps YES
