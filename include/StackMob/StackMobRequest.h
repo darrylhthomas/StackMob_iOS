@@ -39,7 +39,7 @@ typedef enum {
 		StackMobSession *session;
 }
 
-@property(readwrite, assign) id delegate;
+@property(readwrite, retain) id delegate;
 @property(readwrite, copy) NSString* method;
 @property(readwrite, copy) NSString* httpMethod;
 @property(readwrite, retain) NSURLConnection* connection;

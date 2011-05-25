@@ -112,7 +112,7 @@
 	[self cancel];
 	[mConnectionData release];
 	[mConnection release];
-	//[mDelegate release];
+	[mDelegate release];
 	[mMethod release];
 	[mResult release];
 	[mHttpMethod release];
