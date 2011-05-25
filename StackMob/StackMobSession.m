@@ -38,16 +38,23 @@ static StackMobSession* sharedSession = nil;
 }
 
 
-+ (StackMobSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret
-								  appName:(NSString*)appName
-								subDomain:(NSString*)subDomain
-               apiVersionNumber:(NSNumber*)apiVersionNumber {
++ (StackMobSession*)sessionForApplication:(NSString*)key 
+                                   secret:(NSString*)secret
+                                  appName:(NSString*)appName
+                                subDomain:(NSString*)subDomain
+                         apiVersionNumber:(NSNumber*)apiVersionNumber 
+{
 	return [self sessionForApplication:key secret:secret appName:appName 
 							 subDomain:subDomain domain:@"stackmob.com" apiVersionNumber:apiVersionNumber];
 }
 
-+ (StackMobSession*)sessionForApplication:(NSString*)key secret:(NSString*)secret appName:(NSString*)appName
-								subDomain:(NSString*)subDomain domain:(NSString*)domain apiVersionNumber:(NSNumber*)apiVersionNumber{
++ (StackMobSession*)sessionForApplication:(NSString*)key 
+                                   secret:(NSString*)secret 
+                                  appName:(NSString*)appName
+                                subDomain:(NSString*)subDomain 
+                                   domain:(NSString*)domain 
+                         apiVersionNumber:(NSNumber*)apiVersionNumber
+{
 	StackMobSession* session = [[[StackMobSession alloc] initWithKey:key 
 													secret:secret 
                          appName:appName
@@ -67,8 +74,12 @@ static StackMobSession* sharedSession = nil;
 	return [NSMutableString stringWithFormat:@"%@%@/",secureURL, method];
 }
 
-- (StackMobSession*)initWithKey:(NSString*)key secret:(NSString*)secret appName:(NSString*)appName
-                      subDomain:(NSString*)subDomain domain:(NSString*)domain apiVersionNumber:(NSNumber*)apiVersionNumber
+- (StackMobSession*)initWithKey:(NSString*)key 
+                         secret:(NSString*)secret 
+                        appName:(NSString*)appName
+                      subDomain:(NSString*)subDomain 
+                         domain:(NSString*)domain 
+               apiVersionNumber:(NSNumber*)apiVersionNumber
 {
 	if ((self = [super init])) {
 		if (!sharedSession) {
