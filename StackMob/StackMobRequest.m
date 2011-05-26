@@ -116,7 +116,7 @@
 	[mMethod release];
 	[mResult release];
 	[mHttpMethod release];
-	//[mHttpResponse release];
+	[mHttpResponse release];
 	[super dealloc];
 	if (kLogVersbose == YES)
 		StackMobLog(@"StackMobRequest: dealloc finished");
@@ -278,7 +278,7 @@
   }
 }
 
-- (NSDictionary *)sendSynchronousRequest {
+- (id) sendSynchronousRequestProvidingError:(NSError**)error {
 	if (kLogVersbose == YES) {
 		StackMobLog(@"Sending Request: %@", self.method);
 		StackMobLog(@"Request url: %@", self.url);
@@ -313,10 +313,17 @@
 		StackMobLog(@"StackMobRequest: Final URL was: %@", [request URL]);
 	}
 	[mConnectionData setLength:0];
-	NSURLResponse *response;
-	NSError *error;
+	NSURLResponse *response = nil;
 
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
+  mHttpResponse = (NSHTTPURLResponse*)[response copy];
+  
+	if (kLogVersbose) {
+    if (*error!=nil) {
+      StackMobLog(@"StackMobRequest: ERROR: %@", [*error localizedDescription]);
+    }
+	}
+
 	[mConnectionData appendData:data];
 	NSString*     textResult;
 	NSDictionary* result;
@@ -334,7 +341,6 @@
 		result = [textResult yajl_JSON];
 	}
 	return result;
-
 }
 
 	
