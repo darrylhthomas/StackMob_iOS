@@ -2,7 +2,7 @@
 1. Clone the repository from GitHub
 `git clone git://github.com/stackmob/StackMob_iOS.git`
 2. Open the StackMobiOS project in XCode
-3.  Build the target "Build Framework"
+3.  Build the target "Build Framework" (Note: if not building for iOS 4.2, first edit the xcodebuild -sdk params at the top of script/build)
 4.  Copy $\{StackMobiOSHome\}/build/Framework/StackMob.framework to your project as a framework
 5. Add the following to Other Linker Flags in the build configuration of your project: -ObjC -all_load
 6.  Add the following Frameworks to your project:
