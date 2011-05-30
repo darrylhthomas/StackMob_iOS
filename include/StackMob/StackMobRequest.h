@@ -64,7 +64,7 @@ typedef enum {
 - (void)sendRequest;
 - (void)cancel;
 
-- (NSDictionary *)sendSynchronousRequest;
+- (id)sendSynchronousRequestProvidingError:(NSError**)error;
 
 
 @end

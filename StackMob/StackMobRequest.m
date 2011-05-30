@@ -116,7 +116,7 @@
 	[mMethod release];
 	[mResult release];
 	[mHttpMethod release];
-	//[mHttpResponse release];
+	[mHttpResponse release];
 	[super dealloc];
 	if (kLogVersbose == YES)
 		StackMobLog(@"StackMobRequest: dealloc finished");
@@ -183,7 +183,7 @@
 	}
 	[mConnectionData setLength:0];		
 	self.result = nil;
-	self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self] retain];
+	self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self] retain]; // Why retaining this when already retained by synthesized method?
 }
 
 - (void)cancel
@@ -278,7 +278,7 @@
   }
 }
 
-- (NSDictionary *)sendSynchronousRequest {
+- (id)sendSynchronousRequestProvidingError:(NSError**)error {
 	if (kLogVersbose == YES) {
 		StackMobLog(@"Sending Request: %@", self.method);
 		StackMobLog(@"Request url: %@", self.url);
@@ -314,10 +314,11 @@
 	}
 	[mConnectionData setLength:0];
 	NSURLResponse *response;
-	NSError *error;
 
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
 	[mConnectionData appendData:data];
+  mHttpResponse = [(NSHTTPURLResponse*)response copy];
+
 	NSString*     textResult;
 	NSDictionary* result;
 	
