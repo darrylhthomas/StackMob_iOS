@@ -179,7 +179,7 @@
 	}
 		
 	if (kLogVersbose) {
-		StackMobLog(@"StackMobRequest: Final URL was: %@", [request URL]);
+		StackMobLog(@"StackMobRequest: sending asynchronous oauth request: %@", request);
 	}
 	[mConnectionData setLength:0];		
 	self.result = nil;
@@ -309,17 +309,16 @@
 		[request addValue:contentType forHTTPHeaderField: @"Content-Type"]; 
 	}
 	
-	if (kLogVersbose) {
-		StackMobLog(@"StackMobRequest: Final URL was: %@", [request URL]);
-	}
 	[mConnectionData setLength:0];
-	NSURLResponse *response;
+	NSURLResponse *response = nil;
 
+	if (kLogVersbose) {
+		StackMobLog(@"StackMobRequest: sending synchronous oauth request: %@", request);
+	}
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
 	[mConnectionData appendData:data];
   mHttpResponse = [(NSHTTPURLResponse*)response copy];
 
-	NSString*     textResult;
 	NSDictionary* result;
 	
 	if ([mConnectionData length] == 0)
@@ -328,7 +327,7 @@
 	}
 	else
 	{
-		textResult = [[[NSString alloc] initWithData:mConnectionData encoding:NSUTF8StringEncoding] autorelease];
+    NSString* textResult = [[[NSString alloc] initWithData:mConnectionData encoding:NSUTF8StringEncoding] autorelease];
 		StackMobLog(@"Text result was %@", textResult);
 		
 		[mConnectionData setLength:0];		
@@ -338,6 +337,9 @@
 
 }
 
+- (NSString*) description {
+  return [NSString stringWithFormat:@"%@: %@", [super description], self.url];
+}
 	
 	
 @end
