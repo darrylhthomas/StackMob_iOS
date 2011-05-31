@@ -179,11 +179,11 @@
 	}
 		
 	if (kLogVersbose) {
-		StackMobLog(@"StackMobRequest: Final URL was: %@", [request URL]);
+		StackMobLog(@"StackMobRequest: sending asynchronous oauth request: %@", request);
 	}
 	[mConnectionData setLength:0];		
 	self.result = nil;
-	self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self] retain];
+	self.connection = [[[NSURLConnection alloc] initWithRequest:request delegate:self] retain]; // Why retaining this when already retained by synthesized method?
 }
 
 - (void)cancel
@@ -309,15 +309,13 @@
 		[request addValue:contentType forHTTPHeaderField: @"Content-Type"]; 
 	}
 	
-	if (kLogVersbose) {
-		StackMobLog(@"StackMobRequest: Final URL was: %@", [request URL]);
-	}
 	[mConnectionData setLength:0];
 	NSURLResponse *response = nil;
 
+	if (kLogVersbose) {
+		StackMobLog(@"StackMobRequest: sending synchronous oauth request: %@", request);
+	}
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
-  mHttpResponse = (NSHTTPURLResponse*)[response copy];
-  
 	if (kLogVersbose) {
     if (*error!=nil) {
       StackMobLog(@"StackMobRequest: ERROR: %@", [*error localizedDescription]);
@@ -325,7 +323,8 @@
 	}
 
 	[mConnectionData appendData:data];
-	NSString*     textResult;
+  mHttpResponse = [(NSHTTPURLResponse*)response copy];
+
 	NSDictionary* result;
 	
 	if ([mConnectionData length] == 0)
@@ -334,7 +333,7 @@
 	}
 	else
 	{
-		textResult = [[[NSString alloc] initWithData:mConnectionData encoding:NSUTF8StringEncoding] autorelease];
+    NSString* textResult = [[[NSString alloc] initWithData:mConnectionData encoding:NSUTF8StringEncoding] autorelease];
 		StackMobLog(@"Text result was %@", textResult);
 		
 		[mConnectionData setLength:0];		
@@ -343,6 +342,9 @@
 	return result;
 }
 
+- (NSString*) description {
+  return [NSString stringWithFormat:@"%@: %@", [super description], self.url];
+}
 	
 	
 @end

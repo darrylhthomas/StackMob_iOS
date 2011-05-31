@@ -66,8 +66,14 @@ static StackMobSession* sharedSession = nil;
 
 - (NSMutableString*)urlForMethod:(NSString*)method
 {
-	return [NSMutableString stringWithFormat:@"%@%@/",regularURL, method];
-	
+	NSMutableString* url = nil;
+  NSRange range = [method rangeOfString:@"/login" options:NSLiteralSearch];
+  if (range.location == NSNotFound) {
+    url = [NSMutableString stringWithFormat:@"%@%@/",regularURL, method];
+  } else {
+    url = [NSMutableString stringWithFormat:@"%@%@",regularURL, method];
+  }
+	return url;
 }
 
 - (NSMutableString*)secureURLForMethod:(NSString*)method {
