@@ -150,9 +150,9 @@
 	_requestFinished = NO;
 
 	if (kLogVersbose == YES) {
-		StackMobLog(@"Sending Request: %@", self.method);
-		StackMobLog(@"Request url: %@", self.url);
-		StackMobLog(@"Request HTTP Method: %@", self.httpMethod);
+		StackMobLog(@"Sending Request with StackMob method: %@", self.method);
+		StackMobLog(@"Request Request with url: %@", self.url);
+		StackMobLog(@"Request Request with HTTP Method: %@", self.httpMethod);
 	}
 				
 	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:session.apiKey
