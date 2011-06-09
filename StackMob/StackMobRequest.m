@@ -173,7 +173,11 @@
 	[request addValue:@"deflate" forHTTPHeaderField:@"Accept-Encoding"];
 	[request prepare];
 	if (![[self httpMethod] isEqualToString: @"GET"]) {
-		[request setHTTPBody:[[mArguments yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding]];	
+    NSData* postData = [[mArguments yajl_JSONString] dataUsingEncoding:NSUTF8StringEncoding];
+    if (kLogVersbose == YES) {
+      StackMobLog(@"POST Data: %@", postData);
+    }
+		[request setHTTPBody:postData];	
 		NSString *contentType = [NSString stringWithFormat:@"application/json"];
 		[request addValue:contentType forHTTPHeaderField: @"Content-Type"]; 
 	}
@@ -232,24 +236,28 @@
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection
 {
 	_requestFinished = YES;
-	if (kLogRequestSteps == YES)
-		StackMobLog(@"Received Request: %@", self.method);
-	NSString*     textResult;
-	NSDictionary* result;
-	
-	if ([mConnectionData length] == 0)
-	{
-		result = [NSDictionary dictionary];
-	}
-	else
-	{
-		textResult = [[[NSString alloc] initWithData:mConnectionData encoding:NSUTF8StringEncoding] autorelease];
-		StackMobLog(@"Text result was %@", textResult);
-		
-		[mConnectionData setLength:0];		
-		result = [textResult yajl_JSON];
-	}
-	
+	if (kLogRequestSteps == YES) 
+    StackMobLog(@"Received Request: %@", self.method);
+  
+	NSString*     textResult = nil;
+	NSDictionary* result = nil;
+  NSInteger statusCode = [self getStatusCode];
+
+  if ([mConnectionData length] != 0) {
+    textResult = [[[NSString alloc] initWithData:mConnectionData encoding:NSUTF8StringEncoding] autorelease];
+    StackMobLog(@"Text result was %@", textResult);
+  }
+
+  // If it's a 500, it probably isn't JSON so don't attempt to parse it as such
+  if (statusCode != 500) {
+    if (textResult == nil) {
+      result = [NSDictionary dictionary];
+    }	else {
+      [mConnectionData setLength:0];		
+      result = [textResult yajl_JSON];
+    }
+  }
+  
 	if (kLogRequestSteps == YES)
 		NSLog(@"Request Processed: %@", self.method);
 
