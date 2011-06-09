@@ -16,3 +16,8 @@ syntax: glob
 .manager
 
 build/**/*
+
+# XCode user local
+StackMobiOS.xcodeproj/xcuserdata/**/*
+StackMobiOS.xcodeproj/project.xcworkspace/**/*
+StackMobiOS.xcodeproj/project.xcworkspace/*
