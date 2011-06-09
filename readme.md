@@ -14,7 +14,7 @@
 
 7. We suggest you create a SessionFactory to handle creating the StackMob Session needed to connect to our servers. The session object should be retained for the life of the application. So creating it on applicationDidFinishLaunching and releasing it on applicationWillTerminate or applicationDidEnterBackground is a good pattern.  Something like the following will work:
 
-                    `@implementation SMSessionFactory
+                    @implementation SMSessionFactory
                     StackMobSession *session_;
                     NSString * const kAPIKey = @"PUT_YOUR_KEY_HERE";
                     NSString * const kAPISecret = @"PUT_YOUR_SECRET_HERE";
@@ -34,21 +34,23 @@
                         }
                         return session_;
                     }
-                    @end`
+                    @end
 8. You can now make requests to your servers on StackMob using the following pattern
+
 	            StackMobRequest *request = [StackMobRequest requestForMethod: "THE_NAME_OF_THE_METHOD_BEING_CALLED"
                                                                withArguments: "DICT_OF_PARAMS"
                                                                 withHttpVerb: "THE_TYPE_OF_REQUEST_GET_POST_ETC"];
                        request.delegate = self;
                        [request sendRequest];
 
-                 - (void)requestCompleted:(StackMobRequest*)request {
+             - (void)requestCompleted:(StackMobRequest*)request {
                        NSString *prettyPrint = [[request result] yajl_JSONStringWithOptions:YAJLGenOptionsBeautify
                             indentString:@"  "];
                        jsonLabel.text = prettyPrint;
-                   }
+             }
 
 9. You can register an Apple Push Notification service device token like this
+
               - (void) application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
                 // Apple sends the token in this format: <3004dd85 409f1f62 469a82b8 7baf74c9 8101475e 8bcda8a7 4a098853 b9fc858e>
                 // we need to strip out the angle brackets and spaces
