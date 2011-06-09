@@ -40,8 +40,8 @@
 	            StackMobRequest *request = [StackMobRequest requestForMethod: "THE_NAME_OF_THE_METHOD_BEING_CALLED"
                                                                withArguments: "DICT_OF_PARAMS"
                                                                 withHttpVerb: "THE_TYPE_OF_REQUEST_GET_POST_ETC"];
-                       request.delegate = self;
-                       [request sendRequest];
+              request.delegate = self;
+              [request sendRequest];
 
              - (void)requestCompleted:(StackMobRequest*)request {
                        NSString *prettyPrint = [[request result] yajl_JSONStringWithOptions:YAJLGenOptionsBeautify
