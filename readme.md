@@ -36,7 +36,7 @@
                     }
                     @end`
 8. You can now make requests to your servers on StackMob using the following pattern
-	            StackMobRequest *request = [StackMobRequest requestForMethod: "THE_NAME_OF_THE_METHOD_BEING_CALLED"
+	            `StackMobRequest *request = [StackMobRequest requestForMethod: "THE_NAME_OF_THE_METHOD_BEING_CALLED"
                                                                withArguments: "DICT_OF_PARAMS"
                                                                 withHttpVerb: "THE_TYPE_OF_REQUEST_GET_POST_ETC"];
                        request.delegate = self;
@@ -46,10 +46,10 @@
                        NSString *prettyPrint = [[request result] yajl_JSONStringWithOptions:YAJLGenOptionsBeautify
                             indentString:@"  "];
                        jsonLabel.text = prettyPrint;
-                   }
+                   }``
 
 9. You can register an Apple Push Notification service device token like this
-              - (void) application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
+              `- (void) application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
                 // Apple sends the token in this format: <3004dd85 409f1f62 469a82b8 7baf74c9 8101475e 8bcda8a7 4a098853 b9fc858e>
                 // we need to strip out the angle brackets and spaces
                 NSString* tokenString = [NSString stringWithFormat:@"%@", deviceToken];
@@ -64,4 +64,4 @@
                                            nil];
                 StackMobRequest* request = [StackMobRequest pushRequestWithArguments:arguments withHttpVerb:POST];
                 [request sendRequest];
-              }
+              }`
