@@ -48,3 +48,20 @@
                        jsonLabel.text = prettyPrint;
                    }
 
+9. You can register an Apple Push Notification service device token like this
+              - (void) application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
+                // Apple sends the token in this format: <3004dd85 409f1f62 469a82b8 7baf74c9 8101475e 8bcda8a7 4a098853 b9fc858e>
+                // we need to strip out the angle brackets and spaces
+                NSString* tokenString = [NSString stringWithFormat:@"%@", deviceToken];
+                NSRange tokenRange;
+                tokenRange.location = 1;
+                tokenRange.length = [tokenString length]-2;
+                NSString* noBracketsString = [tokenString substringWithRange:tokenRange];
+                NSString* stackMobTokenString = [noBracketsString stringByReplacingOccurrencesOfString:@" " withString:@""];
+                NSDictionary* arguments = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           stackMobTokenString , @"token",
+                                           stackMobAppUserId, @"userId",
+                                           nil];
+                StackMobRequest* request = [StackMobRequest pushRequestWithArguments:arguments withHttpVerb:POST];
+                [request sendRequest];
+              }

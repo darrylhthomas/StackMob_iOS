@@ -18,6 +18,7 @@
 #import "OAMutableURLRequest.h"
 #import "StackMobClientData.h"
 #import "StackMobSession.h"
+#import "StackMobPushRequest.h"
 
 @implementation StackMobRequest;
 
@@ -56,6 +57,16 @@
 	}
 	return request;
 }
+
++ (StackMobRequest*)pushRequestWithArguments:(NSDictionary*)arguments withHttpVerb:(SMHttpVerb) httpVerb {
+	StackMobRequest* request = [StackMobPushRequest request];
+	request.httpMethod = [self stringFromHttpVerb:httpVerb];
+	if (arguments != nil) {
+		[request setArguments:arguments];
+	}
+	return request;
+}
+
 
 + (NSString*)stringFromHttpVerb:(SMHttpVerb)httpVerb {
 	switch (httpVerb) {

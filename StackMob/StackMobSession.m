@@ -20,6 +20,7 @@ static const int kMaxBurstRequests = 3;
 static const NSTimeInterval kBurstDuration = 2;
 
 NSString *url = @"";
+NSString *pushURL = @"";
 NSString *secureURL = @"";
 NSString *regularURL = @"";
 static StackMobSession* sharedSession = nil;
@@ -104,6 +105,7 @@ static StackMobSession* sharedSession = nil;
 		_requestBurstCount = 0;
 		_requestTimer = nil; 
 		url = [[NSString stringWithFormat:@"%@.%@/api/%@/%@/",_subDomain,_domain,_apiVersionNumber,_appName] retain];
+		pushURL = [[NSString stringWithFormat:@"http://%@.%@/push/%@/%@/device_tokens",_subDomain,_domain,_apiVersionNumber,_appName] retain];
 		secureURL = [[NSString stringWithFormat:@"https://%@", url] retain];
 		regularURL = [[NSString stringWithFormat:@"http://%@", url] retain];
 	}
@@ -143,5 +145,10 @@ static StackMobSession* sharedSession = nil;
 - (NSString*)apiSecureURL {
 	return secureURL;
 }
+
+- (NSMutableString*)pushURL {
+  return [NSString stringWithString:pushURL];
+}
+
 
 @end

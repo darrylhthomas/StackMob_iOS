@@ -143,4 +143,10 @@
  */
 - (NSMutableString*)secureURLForMethod:(NSString*)method;
 
+/**
+ * Returns the formatted push url.
+ *
+ */
+- (NSMutableString*)pushURL;
+
 @end

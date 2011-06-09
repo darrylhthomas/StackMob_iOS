@@ -35,7 +35,7 @@ typedef enum {
 	NSString*				mHttpMethod;
 	NSHTTPURLResponse*		mHttpResponse;
 	
-	@private
+	@protected
 		StackMobSession *session;
 }
 
@@ -53,6 +53,8 @@ typedef enum {
 + (StackMobRequest*)requestForMethod:(NSString*)method;
 + (StackMobRequest*)requestForMethod:(NSString*)method withHttpVerb:(SMHttpVerb) httpVerb;
 + (StackMobRequest*)requestForMethod:(NSString*)method withArguments:(NSDictionary*)arguments withHttpVerb:(SMHttpVerb) httpVerb;
+
++ (StackMobRequest*)pushRequestWithArguments:(NSDictionary*)arguments withHttpVerb:(SMHttpVerb) httpVerb;
 
 + (NSString*)stringFromHttpVerb:(SMHttpVerb)httpVerb;
 

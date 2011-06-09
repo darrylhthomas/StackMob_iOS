@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		5798BBED13A15856006D01DF /* StackMobPushRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5798BBEC13A15856006D01DF /* StackMobPushRequest.h */; };
+		5798BC8813A1871E006D01DF /* StackMobPushRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5798BC8713A1871E006D01DF /* StackMobPushRequest.m */; };
 		8239D7CA129109F600F90A7B /* StackMobAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8239D7C8129109F600F90A7B /* StackMobAdditions.h */; };
 		8239D7CB129109F600F90A7B /* StackMobAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8239D7C9129109F600F90A7B /* StackMobAdditions.m */; };
 		82CE425C1288CA1B00A73E9C /* StackMobClientData.m in Sources */ = {isa = PBXBuildFile; fileRef = 82CE42591288CA1B00A73E9C /* StackMobClientData.m */; };
@@ -74,6 +76,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5798BBEC13A15856006D01DF /* StackMobPushRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StackMobPushRequest.h; path = include/StackMob/StackMobPushRequest.h; sourceTree = "<group>"; };
+		5798BC8713A1871E006D01DF /* StackMobPushRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackMobPushRequest.m; path = StackMob/StackMobPushRequest.m; sourceTree = "<group>"; };
 		8239D7C8129109F600F90A7B /* StackMobAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StackMobAdditions.h; path = StackMob/StackMobAdditions.h; sourceTree = "<group>"; };
 		8239D7C9129109F600F90A7B /* StackMobAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackMobAdditions.m; path = StackMob/StackMobAdditions.m; sourceTree = "<group>"; };
 		82CE42591288CA1B00A73E9C /* StackMobClientData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackMobClientData.m; path = StackMob/StackMobClientData.m; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 				82CE42591288CA1B00A73E9C /* StackMobClientData.m */,
 				82CE425F1288CA2600A73E9C /* StackMobRequest.h */,
 				82CE425A1288CA1B00A73E9C /* StackMobRequest.m */,
+				5798BBEC13A15856006D01DF /* StackMobPushRequest.h */,
+				5798BC8713A1871E006D01DF /* StackMobPushRequest.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 				82CE42B61288CAE500A73E9C /* Constants.h in Headers */,
 				82DFD9D3128CC46C008D20E2 /* StackMobSession.h in Headers */,
 				8239D7CA129109F600F90A7B /* StackMobAdditions.h in Headers */,
+				5798BBED13A15856006D01DF /* StackMobPushRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +465,7 @@
 				82CE42B41288CADC00A73E9C /* Constants.m in Sources */,
 				82DFD9D1128CC45E008D20E2 /* StackMobSession.m in Sources */,
 				8239D7CB129109F600F90A7B /* StackMobAdditions.m in Sources */,
+				5798BC8813A1871E006D01DF /* StackMobPushRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
